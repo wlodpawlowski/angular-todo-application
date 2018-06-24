@@ -1,20 +1,74 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class='container'>
+  <div class='row mt-5'>
+    <div class='col-md-12 text-center'>
+      <h1 class='h1-responsive'>Angular TodoList Application</h1>
+    </div>
+  </div>
+  <div class='row mt-5'>
+    <div class='col-md-3 offset-md-2 left-column mb-1'>
+      <ul class='list-group'>
+        <li *ngFor='let category of categories' class='list-group-item d-flex justify-content-between align-items-center' (click)='onSelect(category)'>
+          {{category.name}}
+          <span class='badge primary-color badge-pill'>{{countTodosByCat(category.id)}}</span>
+        </li>
+        <li class='list-group-item d-flex justify-content-between align-items-center'>
+          <form>
+            <input mdbActive type='text' placeholder='Add new category' id='form1' class='form-control' [(ngModel)]='newCategory.name' (keyup.enter)='addCategory()' name='addCat'>
+          </form>
+          <span class='badge primary-color badge-pill'>
+            <a class='prefix'>
+              <i class='fa fa-plus' aria-hidden='true' (click)='addCategory()'></i>
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class='col-md-5 list mb-1' *ngIf='selectedCategory; else elseBlock'>
+      <div class='row px-3 py-3'>
+        <div class='col-md-12'>
+          <h4>{{selectedCategory.name}}</h4>
+        </div>
+      </div>
+      <div class='row px-4 mt-3'>
+        <div class='form-group full-width' *ngIf='todosForCat.length > 0'>
+          <form class='full-width'>
+            <div *ngFor='let todo of todosForCat'>
+              <input type='checkbox' id='{{todo.id}}' (click)='toggleTodoComplete(todo)' [checked]='todo.complete'>
+              <label for='{{todo.id}}' [ngClass]="{'strikethrough' : todo.complete}">{todo.title}</label>
+              <button type='button' class='close' aria-label='Close' style='float: right;' (click)='removeTodo(todo)'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class='row px-4 mt-1'>
+        <div class='md-form'>
+          <form>
+            <a class='prefix'>
+              <i class='fa fa-plus prefix' (click)='addTodo()'></i>
+            </a>
+            <input mdbActive type='text' id='form2' class='form-control' [(ngModel)]='newTodo.title' (keyup.center)='addTodo()' name='addNew'>
+            <label for='form2'>Add new task</label>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class='col-md-5 test 5 list text-center'>
+        <h5 class='pt-3'>Choose category from menu in the left.</h5>
+        <p class='pt-5'>You can also create a new category by typing the name and pressing the ENTER or clicking on the
+          <span class='badge primary-color badge-pill'>
+            <i class='fa fa-plus' aria-hidden='true'></i>
+          </span>
+          button.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+  <div class='row mt-5'>
+    <div class='col-md-12 text-center'>
+      <h3 class='h3-responsive'>Copyright © Włodzimierz Pavlov 2018 year</h3>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
