@@ -1,65 +1,68 @@
-<div class='container'>
-  <div class='row mt-5'>
-    <div class='col-md-12 text-center'>
-      <h1 class='h1-responsive'>Angular TodoList Application</h1>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <h1 class="h1-responsive">Angular TodoList Application</h1>
     </div>
   </div>
-  <div class='row mt-5'>
-    <div class='col-md-3 offset-md-2 left-column mb-1'>
-      <ul class='list-group'>
-        <li *ngFor='let category of categories' class='list-group-item d-flex justify-content-between align-items-center' (click)='onSelect(category)'>
+  <div class="row mt-5 ">
+    <div class="col-md-3 offset-md-2 left-column mb-1">
+      <ul class="list-group">
+        <li *ngFor="let category of categories" class="list-group-item d-flex justify-content-between align-items-center" (click)="onSelect(category)">
           {{category.name}}
-          <span class='badge primary-color badge-pill'>{{countTodosByCat(category.id)}}</span>
+          <span class="badge primary-color badge-pill">{{countTodosByCat(category.id)}}</span>
         </li>
-        <li class='list-group-item d-flex justify-content-between align-items-center'>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
           <form>
-            <input mdbActive type='text' placeholder='Add new category' id='form1' class='form-control' [(ngModel)]='newCategory.name' (keyup.enter)='addCategory()' name='addCat'>
+            <input mdbActive type="text" placeholder="Add new category" id="form1" class="form-control add-category" [(ngModel)]="bindValue"
+              (keyup.enter)="addCategory()" name="addCat">
           </form>
-          <span class='badge primary-color badge-pill'>
-            <a class='prefix'>
-              <i class='fa fa-plus' aria-hidden='true' (click)='addCategory()'></i>
+          <span class="badge primary-color badge-pill">
+            <a class="prefix">
+              <i class="fa fa-plus" aria-hidden="true" (click)="addCategory()"></i>
             </a>
           </span>
+          <br/>
+          <button type='button' (click)='addBinded()' class='bind-btn'>Add binded value</button>
         </li>
       </ul>
     </div>
-    <div class='col-md-5 list mb-1' *ngIf='selectedCategory; else elseBlock'>
-      <div class='row px-3 py-3'>
-        <div class='col-md-12'>
-          <h4>{{selectedCategory.name}}</h4>
+    <div class="col-md-5 list mb-1" *ngIf="selectedCategory; else elseBlock">
+      <div class="row px-3 py-3">
+        <div class="col-md-12">
+          <h4 class='selected-title'>{{selectedCategory.name}}</h4>
         </div>
       </div>
-      <div class='row px-4 mt-3'>
-        <div class='form-group full-width' *ngIf='todosForCat.length > 0'>
-          <form class='full-width'>
-            <div *ngFor='let todo of todosForCat'>
-              <input type='checkbox' id='{{todo.id}}' (click)='toggleTodoComplete(todo)' [checked]='todo.complete'>
-              <label for='{{todo.id}}' [ngClass]="{'strikethrough' : todo.complete}">{todo.title}</label>
-              <button type='button' class='close' aria-label='Close' style='float: right;' (click)='removeTodo(todo)'>
-                <span aria-hidden='true'>&times;</span>
+      <div class="row px-4 mt-3">
+        <div class="form-group full-width" *ngIf="todosForCat.length > 0">
+          <form class="full-width">
+            <div *ngFor="let todo of todosForCat">
+              <input type="checkbox" id="{{todo.id}}" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
+              <label for="{{todo.id}}" [ngClass]="{'strikethrough' : todo.complete}">{{todo.title}}</label>
+              <button type="button" class="close" aria-label="Close" style="float: right;" (click)="removeTodo(todo)">
+                <span aria-hidden="true" >&times;</span>
               </button>
             </div>
           </form>
         </div>
       </div>
-      <div class='row px-4 mt-1'>
-        <div class='md-form'>
+      <div class="row px-4 mt-1">
+        <div class="md-form">
           <form>
-            <a class='prefix'>
-              <i class='fa fa-plus prefix' (click)='addTodo()'></i>
+            <a class="prefix">
+              <i class="fa fa-plus prefix" (click)="addTodo()"></i>
             </a>
-            <input mdbActive type='text' id='form2' class='form-control' [(ngModel)]='newTodo.title' (keyup.center)='addTodo()' name='addNew'>
-            <label for='form2'>Add new task</label>
+            <input mdbActive type="text" id="form2" class="form-control" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()" name="addNew">
+            <label for="form2">Add new task</label>
           </form>
         </div>
       </div>
     </div>
     <ng-template #elseBlock>
-      <div class='col-md-5 test 5 list text-center'>
-        <h5 class='pt-3'>Choose category from menu in the left.</h5>
-        <p class='pt-5'>You can also create a new category by typing the name and pressing the ENTER or clicking on the
-          <span class='badge primary-color badge-pill'>
-            <i class='fa fa-plus' aria-hidden='true'></i>
+      <div class="col-md-5 test 5 list text-center task-window">
+        <h5 class="pt-3">Choose category from menu in the left.</h5>
+        <p class="pt-5">You can also create a new category by typing the name and pressing the enter or clicking on the
+          <span class="badge primary-color badge-pill">
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </span>
           button.
         </p>

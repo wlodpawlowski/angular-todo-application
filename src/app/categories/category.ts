@@ -3,6 +3,6 @@ export class Category {
   name = '';
 
   constructor(values: Object = {}) {
-    Object.assign(this, values);
-  }
+      Object.assign(this, values);
+    }
 }

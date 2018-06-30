@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Category } from './category';
+import {Category} from './category';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class CategoryDataService {
-  lastId = 0;
-  categories: Category[] = [];
+
+  // Placeholder for last id so we can simulate
+  // automatic incrementing of id's
+  lastId = 5;
+
+    // Placeholder for category's
+    categories: Category[] = [];
+
   constructor() { }
 
-  //ADD method for todo-category:
-  addCategory(category: Category): CategoryDataService {
+  // Simulate POST /categories
+  addCategory(category): CategoryDataService {
     if (!category.id) {
       category.id = ++this.lastId;
     }
@@ -19,14 +22,15 @@ export class CategoryDataService {
     return this;
   }
 
-  //DELETE method for todo-category:
+  // Simulate DELETE /categories/:id
   deleteCategoryById(id: number): CategoryDataService {
-    this.categories = this.categories.filter(category => category.id !== id);
+    this.categories = this.categories
+      .filter(category => category.id !== id);
     return this;
   }
 
-  //UPDATE method for todo-category:
-  updateCategoryById(id: number, values: Object = {}): Category {
+  // Simulate PUT /categories/:id
+  updateCategoryById(id: number, values: Object = {}): Category | any {
     let category = this.getCategoryById(id);
     if (!category) {
       return null;
@@ -35,13 +39,15 @@ export class CategoryDataService {
     return category;
   }
 
-  //Getting all categories of todo-items:
+  // Simulate GET /categories
   getAllCategories(): Category[] {
     return this.categories;
   }
 
-  //Getting category by ID:
-  getCategoryById(id: number): Category {
-    return this.categories.filter(category => category.id === id).pop();
+  // Simulate GET /categories/:id
+  getCategoryById(id: number): Category | any{
+    return this.categories
+      .filter(category => category.id === id)
+      .pop();
   }
 }
